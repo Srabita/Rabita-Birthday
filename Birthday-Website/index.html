@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Rabita</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #ffe4e1, #fff0f5);
+      color: #333;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+    audio {
+      display: none;
+    }
+    
+    /* Rose Petals Animation */
+    .petals {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 100;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ff69b4" d="M50,10 C60,20 70,25 80,30 C90,35 95,45 90,55 C85,65 75,70 65,75 C55,80 45,85 35,80 C25,75 15,65 10,55 C5,45 10,35 20,30 C30,25 40,20 50,10 Z"/></svg>');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.8;
+      animation: falling linear infinite;
+    }
+    
+    @keyframes falling {
+      0% {
+        transform: translate(0, -10%) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translate(var(--end-x), 100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+    .hero {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      color: white;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(5px);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 2s ease-in-out;
+    }
+    .hero h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 64px;
+      color: #fff;
+      text-shadow: 0 0 10px #ff69b4;
+      margin-bottom: 20px;
+    }
+    .hero button {
+      padding: 14px 28px;
+      font-size: 18px;
+      background: linear-gradient(to right, #ff69b4, #ff1493);
+      border: none;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hero button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(to right, #ff1493, #ff69b4);
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    h2 {
+      font-size: 36px;
+      color: #e91e63;
+      margin-bottom: 30px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+    .gallery img {
+      width: 220px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transform: scale(1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    .letter {
+      font-family: 'Great Vibes', cursive;
+      font-size: 28px;
+      color: #ff1493;
+      background: #fff5f7;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: fadeIn 2s ease;
+    }
+    .timeline {
+      position: relative;
+      text-align: left;
+      padding-left: 30px;
+      border-left: 4px solid #ff69b4;
+    }
+    .timeline div {
+      margin-bottom: 30px;
+      position: relative;
+      padding-left: 20px;
+      font-size: 18px;
+    }
+    .timeline div::before {
+      content: '🎉';
+      position: absolute;
+      left: -18px;
+      top: 0;
+      font-size: 18px;
+    }
+    .gift-reveal button {
+      background: linear-gradient(to right, #e91e63, #ff69b4);
+      color: white;
+      padding: 14px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+    .gift-reveal button:hover {
+      background: linear-gradient(to right, #ff69b4, #e91e63);
+      transform: scale(1.1);
+    }
+    .gift-reveal p {
+      display: none;
+      margin-top: 25px;
+      font-size: 24px;
+      color: #d81b60;
+      font-weight: bold;
+      animation: fadeIn 1s ease-in;
+    }
+    footer {
+      background: #fff0f5;
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+      color: #888;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 44px; }
+      .gallery img { width: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Rose Petals Container -->
+  <div class="petals" id="petals"></div>
+
+  <!-- Background Music -->
+  <audio autoplay loop>
+    <source src="C:\Users\User\Desktop\Birthday/happy-birthday-254480.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-content" data-aos="zoom-in">
+      <h1>Happy Birthday, My Love – Rabita ❤️</h1>
+      <button onclick="document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });">Scroll Down to Explore</button>
+    </div>
+  </div>
+
+  <!-- Gallery Section -->
+  <section id="gallery" data-aos="fade-up">
+    <h2>Our Beautiful Memories 📸</h2>
+    <div class="gallery">
+      <source src="audio/happy-birthday.mp3" type="audio/mpeg">
+        <img src="images/image 1.jpg" alt="Memory 1">
+        <img src="images/image 2.jpeg" alt="Memory 2">
+        <img src="images/Image 3.jpeg" alt="Memory 3">
+        <img src="images/image 4.jpg" alt="Memory 4">
+        <img src="images/image 5.jpg" alt="Memory 5">
+    </div>
+  </section>
+
+  <!-- Letter Section -->
+  <section id="letter" data-aos="fade-up">
+    <h2>A Special Message Just for You 💌</h2>
+    <p class="letter">
+      My dearest Rabita,<br><br>
+      On this special day, I want to remind you just how much you mean to me. Your smile lights up my world, your laughter is my favorite melody, and your love is my greatest treasure. Thank you for being the heart of my life. I wish you endless joy and love – today and always.<br><br>
+      With all my love,<br>
+      Your Samar
+    </p>
+  </section>
+
+  <!-- Timeline Section -->
+  <section id="timeline" data-aos="fade-up">
+    <h2>Our Journey Together 💑</h2>
+    <div class="timeline">
+      <div><strong>2081:</strong> The day we started talking — a moment that changed everything.</div>
+      <div><strong>2081:</strong> Our love proposal and unforgettable memories.</div>
+      <div><strong>2081:</strong> You said yes! A promise of forever.</div>
+      <div><strong>2081:</strong> Our dream to get married and build a beautiful life together.</div>
+      <div><strong>2082:</strong> First meeting – the happiest day of our lives!</div>
+    </div>
+  </section>
+
+  <!-- Gift Section -->
+  <section class="gift-reveal" data-aos="zoom-in-up">
+    <h2>Your Surprise Awaits 🎁</h2>
+    <button onclick="document.getElementById('gift').style.display='block';">Click to Reveal</button>
+    <p id="gift">💍 I'm coming home just for you! 💖</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    Made with ❤️ by Samar for Rabita | Happy Birthday 2025
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+    
+    // Create falling rose petals
+    function createPetals() {
+      const petalsContainer = document.getElementById('petals');
+      const petalCount = 20;
+      
+      for (let i = 0; i < petalCount; i++) {
+        setTimeout(() => {
+          const petal = document.createElement('div');
+          petal.classList.add('petal');
+          
+          // Random properties for each petal
+          const size = Math.random() * 20 + 10;
+          const startX = Math.random() * window.innerWidth;
+          const duration = Math.random() * 10 + 10;
+          const delay = Math.random() * 15;
+          const endX = (Math.random() - 0.5) * 200;
+          
+          petal.style.width = `${size}px`;
+          petal.style.height = `${size}px`;
+          petal.style.left = `${startX}px`;
+          petal.style.animationDuration = `${duration}s`;
+          petal.style.animationDelay = `${delay}s`;
+          petal.style.setProperty('--end-x', `${endX}px`);
+          
+          petalsContainer.appendChild(petal);
+          
+          // Remove petal after animation completes to prevent DOM overload
+          setTimeout(() => {
+            petal.remove();
+          }, (duration + delay) * 1000);
+        }, i * 1000);
+      }
+    }
+    
+    // Create initial petals and keep creating more
+    createPetals();
+    setInterval(createPetals, 20000);
+    
+    // Adjust for window resize
+    window.addEventListener('resize', function() {
+      document.getElementById('petals').innerHTML = '';
+      createPetals();
+    });
+  </script>
+
+</body>
+</html>
